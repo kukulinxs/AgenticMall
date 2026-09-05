@@ -1,0 +1,45 @@
+# Python and uv
+.venv/
+.uv-cache/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# Environment and local configuration
+.env
+.env.*
+!.env.example
+*.local
+
+# Frontend build and package-manager caches
+admin-web/node_modules/
+admin-web/dist/
+admin-web/.vite/
+admin-web/.cache/
+admin-web/npm-debug.log*
+admin-web/yarn-debug.log*
+admin-web/yarn-error.log*
+admin-web/pnpm-debug.log*
+
+# IDE and operating-system files
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+*.code-workspace
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Runtime logs
+*.log

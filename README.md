@@ -2,6 +2,8 @@
 
 这是一个单进程、内存存储的 TeleAgent 商品运维演示工程。它提供自研 MCP 风格 HTTP 网关和 Mock 商品后台，支持新增、查询、修改、上下架、删除五个商品技能。
 
+项目还包含一个轻量商品运营后台，位于 `admin-web/`。后台与 TeleAgent 共用同一套 FastAPI 商品业务逻辑和内存数据，不维护第二份 Mock 数据。
+
 ## 环境与启动
 
 需要 Python 3.9+ 和 [uv](https://docs.astral.sh/uv/)。
@@ -104,3 +106,30 @@ Invoke-RestMethod -Method Post -Uri "http://127.0.0.1:8080/mcp/invoke" -Headers 
 ```
 
 测试不需要额外安装 pytest，覆盖全部技能、权限、异常码、库存边界和数据变更。
+
+## 轻量商品后台
+
+后台仅覆盖 Demo 所需的商品运营闭环：商品列表、名称/部门/状态筛选、新增、编辑、上下架和删除。它刻意不包含登录、用户权限、订单、会员、促销、分类、SKU、文件上传和数据库迁移。
+
+先启动 FastAPI（当前本地演示使用 `8082`）：
+
+```powershell
+.\.venv\Scripts\python.exe -m uvicorn main:app --host 127.0.0.1 --port 8082
+```
+
+再启动管理端：
+
+```powershell
+cd admin-web
+pnpm install
+pnpm dev
+```
+
+访问 [http://127.0.0.1:5173](http://127.0.0.1:5173)。Vite 会将 `/api` 请求代理到 `http://127.0.0.1:8082`；如后端端口调整，请同步修改 `admin-web/vite.config.js`。
+
+生产构建验证：
+
+```powershell
+cd admin-web
+pnpm run build
+```

@@ -7,6 +7,7 @@ from uuid import uuid4
 
 import uvicorn
 from fastapi import FastAPI, Header
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator
 
 
@@ -269,6 +270,13 @@ async def lifespan(_: FastAPI):
 
 
 app = FastAPI(title="TeleAgent Product Operations Demo", lifespan=lifespan)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://127.0.0.1:5173", "http://localhost:5173"],
+    allow_credentials=False,
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
+    allow_headers=["Content-Type"],
+)
 
 
 @app.post("/api/shop/goods/add")
